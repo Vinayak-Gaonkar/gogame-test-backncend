@@ -12,6 +12,7 @@ const cors = require('cors');
 
 
 var app = express();
+var http = require('http').Server(app);
 app.use(cors())
 
 app.use(bodyParser.json({
@@ -49,6 +50,10 @@ app.use('/', gameRouter);
 app.use(function (req, res, next) {
   next(createError(404));
 });
+
+app.set('port', 3000);
+http.listen(app.get('port'))
+console.log('Server Running on port no: ' + app.get('port'))
 
 // error handler
 app.use(function (err, req, res, next) {
